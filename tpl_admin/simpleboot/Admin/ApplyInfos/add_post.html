@@ -1,0 +1,39 @@
+<table class="table table-hover table-bordered">
+			<thead>
+				<tr><th>No.</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>手机号</th>
+					<th>身高</th>
+					<th>体重</th>
+					<if condition="$status eq 100 | $status eq ''">
+					<th width="120">操作</th>
+					</if>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- {$i=1} -->
+				<foreach name="infos" item="val">
+				<tr>
+					<td>{$i}</td>
+					<td>{$val.applicant_name}</td>
+					
+					<td>
+					<if condition="$val.gendar eq 1">
+						男
+					<else />
+						女
+					</if>
+					</td>
+					<td>{$val.telphone}</td>
+					<td>{$val.height}cm</td>
+					<td>{$val.weight}KG</td>
+					<if condition="$status eq 100 | $status eq ''">
+					<td><a href='{:U("ApplyInfos/edit",array("id"=>$val["id"]))}'>修改</a></td>
+					</if>
+				</tr>
+				</foreach>
+				<!-- {$i++} -->
+			</tbody>
+		</table>
+	

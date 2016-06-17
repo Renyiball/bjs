@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>班级赛系统后台</title>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge" />
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta name="robots" content="noindex,nofollow">
+		<link rel="icon" href="__TMPL__Public/images/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="__TMPL__Public/images/favicon.ico" type="image/x-icon">
+		<link href="__TMPL__assets/css/admin_login.css" rel="stylesheet" />
+		<style>
+			body {
+				background: url(__TMPL__assets/images/bj.jpg)center fixed no-repeat;
+				background-color:#def;
+				overflow: hidden;
+				height: 100%;
+				background-size: cover;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				padding: 0;
+				margin: 0;
+				font-family: Arial, "Microsoft Yahei";
+			}
+			#login_btn_wraper{
+				text-align: center;
+			}
+			#login_btn_wraper .tips_success{
+				color:#FF0200;
+				font-weight:bold;
+			}
+			#login_btn_wraper .tips_error{
+				color:#0020FF;
+				font-weight:bold;
+			}
+			#login_btn_wraper button:focus{outline:none;}
+			.wrap1{ 
+				margin: 10% 0 0 15%; 
+				float: left;
+				-webkit-animation: bounceIn 600ms linear;
+				}
+			.wrap{ 
+				margin: 10% 15% 0 0; 
+				float: right;
+				}
+		</style>
+		<script>
+			if (window.parent !== window.self) {
+					document.write = '';
+					window.parent.location.href = window.self.location.href;
+					setTimeout(function () {
+							document.body.innerHTML = '';
+					}, 0);
+			}
+		</script>
+		
+	</head>
+<body>
+    <!--[if lt IE 9]>
+      	<div align="center">
+      		<h1>您的浏览器版本过低、已影响使用。请更换高版本浏览器</h1>
+      		<h3>→<a href="http://www.maxthon.cn/" target="_blank">点击下载推荐浏览器</a>←</h3>
+      	</div>
+    <![endif]-->
+	<div align="center">
+	<table border=0>
+	<tr><td height="100" colspan="5">&nbsp;</td></tr>
+	<tr>
+		<td valign="top">
+		<div class="login">
+		<h1><a>扫码进QQ群</a></h1>
+			<ul>
+				<li>
+					<img src="__TMPL__assets/images/qqq1.jpg" width="238"/>
+				</li>
+			</ul>
+			<ul>				
+				<li>
+					班级赛QQ群：224148720
+				</li>
+				<li>
+					客服ＱＱ：393982170
+				</li>
+				<li>
+					邮箱：banjisai@renyiball.com
+				</li>
+			</ul>
+		</div>
+	</td>
+	<td width="160">
+	&nbsp;
+	</td>
+	<td valign="top">
+		<div class="login">
+		<h1><a>扫码下载</a></h1>
+			<ul>
+				<li>
+					<img src="__TMPL__assets/images/ewm.png" width="238"/>
+				</li>
+			</ul>
+			<ul>
+				<li>
+					客服电话：13910996686
+				</li>
+				<li>
+					联 系 人&nbsp;&nbsp;：史老师
+				</li> 
+			</ul>
+				<div id="login_btn_wraper"><br>
+					<a href="__ROOT__/help/declare.html" target="_blank"><font color="blue" size="5">班级赛APP使用说明</font></a>
+				</div>
+		</div>
+	</td>
+	<td width="160">
+	&nbsp;
+	</td>
+	<td  valign="top"> 
+		<div class="login">
+		<h1><a href="__ROOT__">班级赛管理</a></h1>
+		<form method="post" name="login" action="{:U('public/dologin')}" autoComplete="off" class="J_ajaxForm">
+			<div class="login">
+				<ul>
+					<li>
+						<input class="input" id="J_admin_name" required name="username" type="text" placeholder="帐号名或邮箱" title="帐号名或邮箱" value="{$_COOKIE['admin_username']}"/>
+					</li>
+					<li>
+						<input class="input" id="admin_pwd" type="text" required name="password" placeholder="密码" title="密码" onfocus="this.type='password'" />
+					</li>
+					<li>
+						<div id="J_verify_code">
+							{:sp_verifycode_img('length=4&font_size=35&width=238&height=114','style="cursor: pointer;" title="点击获取"')}
+						</div>
+					</li>
+					<li>
+						<input class="input" type="text" name="verify" placeholder="请输入验证码" />
+					</li>
+				</ul>
+				<div id="login_btn_wraper">
+					<button type="submit" name="submit" class="btn btn_submit J_ajax_submit_btn">登录</button><br>
+				</div>
+
+			</div>
+		</form>
+		</div>
+	</td>
+	</tr>
+	</table>
+	</div>
+
+<script>
+var GV = {
+	DIMAUB: "__ROOT__/",
+	JS_ROOT: "statics/js/",//js版本号
+	TOKEN : ''	//token ajax全局
+};
+</script>
+<script src="__ROOT__/statics/js/wind.js"></script>
+<script src="__ROOT__/statics/js/jquery.js"></script>
+<script type="text/javascript" src="__ROOT__/statics/js/common.js"></script>
+<script>
+;(function(){
+	document.getElementById('J_admin_name').focus();
+	
+})();
+</script>
+</body>
+</html>

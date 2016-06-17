@@ -1,0 +1,241 @@
+<admintpl file="header" />
+</head>
+
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('School/index')}">学校列表</a></li>
+			<li class="active"><a>服装申报</a></li>
+		</ul>
+<style type="text/css">
+.radio, .checkbox {
+width: 60px;
+float: left;
+}
+</style>
+<!--<form name="myform" id="myform" action="{:U('School/add_post')}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">-->
+<div class="col-auto">
+	<div class="table_full" id="table">
+	
+		<if condition="$message">
+			{$message}
+			
+			<if condition="($Think.session.packet_id eq 2 | $Think.session.packet_id eq 1) && $status egt 100 && $status lt 400">
+				<span>{$school_name}</span><span style="margin-left:200px">修改状态:
+				<select id="status" class="normal_select" style="width: 100px;">
+					<eq name="status" value="100">
+						<option value="100" selected="selected">未提交</option>
+						<option value="200">已提交</option>
+						<option value="300">已备货</option>
+						<option value="400">已发送</option>
+					</eq>
+					<eq name="status" value="200">
+						<option value="100">未提交</option>
+						<option value="200" selected="selected">已提交</option>
+						<option value="300">已备货</option>
+						<option value="400">已发送</option>
+					</eq>
+					<eq name="status" value="300">
+						<option value="100">未提交</option>
+						<option value="200">已提交</option>
+						<option value="300" selected="selected">已备货</option>
+						<option value="400">已发送</option>
+					</eq>
+					<eq name="status" value="400">
+						<option value="100">未提交</option>
+						<option value="200">已提交</option>
+						<option value="300">已备货</option>
+						<option value="400" selected="selected">已发送</option>
+					</eq>
+						
+				</select>
+					&nbsp;&nbsp;<button class="btn btn-primary btn_submit"type="button" id="save_status" sid={$sid}>修改</button>
+				</span>
+			
+			</if>
+		<else />
+			<table class="table table-bordered" style="width: 1200px">
+	   <tr>
+	      <th width="100px;">姓名</th>
+	      <td width="240px;"  ><input type="text" id="name" class="input input_hd J_title_color" style="width: 110px" /><span id="name_sp"></span></td>
+		  <th width="100px;">手机号</th>
+	      <td width="240px;"><input type="text" id="tel" class="input input_hd J_title_color" style="width: 110px"/><span id="tel_sp" ></span></td> 
+	     
+	        <th>体重</th>
+	      <td>
+				<select id="weight" class="normal_select" style="width: 100px;">
+					<option value="40">40Kg</option>
+					<option value="45">45Kg</option>
+					<option value="50">50Kg</option>
+					<option value="55">55Kg</option>
+					<option value="60">60Kg</option>
+					<option value="65">65Kg</option>
+					<option value="70">70Kg</option>
+					<option value="75">75Kg</option>
+					<option value="80">80Kg</option>
+					<option value="85">85Kg</option>
+					<option value="90">90Kg</option>
+					<option value="95">95Kg</option>
+					<option value="100">100Kg</option>
+					<option value="105">105Kg</option>
+					<option value="110">110Kg</option>
+					<option value="115">115Kg</option>
+					<option value="120">120Kg</option>
+				</select>
+	      </td> 
+	    </tr>
+	    <tr>
+	      <th>性别</th>
+	      <td >
+            <span class="switch_list cc">
+			<label class="radio"><input type="radio" name="gendar" value="1" checked><span>男</span></label>
+			<label class="radio"><input type="radio" name="gendar" value="2"><span>女</span></label>
+		 	</span>
+	      </td>
+
+
+	      <th>身高</th>
+	      <td>
+				<select id="height" class="normal_select" style="width: 100px;">
+					<option value="150">150cm</option>
+					<option value="155">155cm</option>
+					<option value="160">160cm</option>
+					<option value="165">165cm</option>
+					<option value="170">170cm</option>
+					<option value="175">175cm</option>
+					<option value="180">180cm</option>
+					<option value="185">185cm</option>
+					<option value="190">190cm</option>
+					<option value="195">195cm</option>
+					<option value="200">200cm</option>
+		       
+				</select>
+	      </td>
+	     
+	       <td colspan="2">
+	<button class="btn btn-primary btn_submit"type="button" id="add">保存</button>
+	</td> 
+	    </tr>
+	   <td colspan="6">&nbsp;<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="button" id="commitOrder">提交申请</button></td>
+	  </table>
+
+		</if>
+	  
+	</div>
+</div>
+ 
+<div id="list">
+  <table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>手机号</th>
+					<th>身高</th>
+					<th>体重</th>
+					<if condition="$status eq 100 | $status eq ''">
+					<th width="120">操作</th>
+					</if>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- {$i=1} -->
+				<foreach name="infos" item="val">
+				<tr>
+					<td>{$i}</td>
+					<td>{$val.applicant_name}</td>
+					
+					<td>
+					<if condition="$val.gendar eq 1">
+						男
+					<else />
+						女
+					</if>
+					</td>
+					<td>{$val.telphone}</td>
+					<td>{$val.height}cm</td>
+					<td>{$val.weight}KG</td>
+					<if condition="$status eq 100 | $status eq ''">
+					<td><a href='{:U("ApplyInfos/edit",array("sid"=>I("get.sid"),"id"=>$val["id"]))}'>修改</a></td>
+					</if>
+				</tr>
+				<!-- {$i++} -->
+				</foreach>
+			</tbody>
+		</table>
+		
+		</div>
+</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script src="__ROOT__/statics/js/jquery.js"></script>
+	<script>
+		
+		//传输数据
+		$("#add").live("click",function(){
+
+			var name 	=  $("#name").val();
+			var tel 	=  $("#tel").val();
+			var height  =  $("#height").val();
+			var weight  =  $("#weight").val();
+			var sex     =  $("input[name=gendar]").val();
+
+			$.ajax({  
+			   type: "POST",  
+			   url: "{:U('ApplyInfos/add_post')}",  
+			   data: {"applicant_name":name,"gendar":sex,"height":height,"telphone":tel,"weight":weight},  
+			   success: function(msg){  
+			     
+			     $('#list').html(msg);
+			   }  
+			}); 
+		})
+
+		//提交申请
+		$("#commitOrder").click(function(){
+			if(confirm("你确定要提交申请吗?提交后不能更改！")){
+			 $.ajax({  
+			   type: "POST",  
+			   url: "{:U('ApplyInfos/commit_order')}",  
+			   success: function(msg){  
+			     
+			     if(msg == 1){
+			     	alert("提交成功");
+			     	$("#table").hide();
+			     	location.reload();
+			     }else{
+			     	alert("修改成功");
+			     	$("#table").hide();
+			     	location.reload();
+			     }
+			   }  
+			}); 
+			}else{
+				return false;
+			}
+		})
+		//修改状态
+		$("#save_status").click(function(){
+			var status = $("#status").val();
+			var sid = $(this).attr('sid');
+			if(confirm("你确定要修改吗？")){
+			 $.ajax({  
+			   type: "POST",  
+			   url: "{:U('ApplyInfos/save_status')}",
+			   data: {"sid":sid,"status":status},  
+			   success: function(msg){  
+			     
+			     if(msg == 1){
+			     	alert("修改成功");
+			     	location.reload();
+			     }
+			   }  
+			}); 
+			}else{
+				return false;
+			}
+		})
+	</script>
+</body>
+</html>

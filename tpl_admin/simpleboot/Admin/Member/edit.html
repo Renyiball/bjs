@@ -1,0 +1,70 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Member/index',array('gid'=>I('get.gid')))}">球员列表</a></li>
+			<li class="active"><a>修改球员</a></li>
+		</ul>
+<form name="myform" id="myform" action="{:u('Member/edit_post',array('gid'=>I('get.gid')))}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">
+<div class="col-auto">
+	<div class="table_full">
+	  <table class="table table-bordered">
+	    <tr>
+	      <th>班级名称</th>
+	      <td>{$teaminfos.team_name}</td>
+	    </tr>
+	    <tr>
+	      <th>姓名<input type="hidden" name="userid" value="{$users.id}" /></th>
+	      <td><input type="text" name="real_name" value="{$users.real_name}" class="input input_hd J_title_color"/></td>
+	    </tr>
+	    <tr>
+	      <th>昵称</th>
+	      <td><input type="text" name="nickname" value="{$users.nickname}" class="input input_hd J_title_color"/></td>
+	    </tr>
+	    <tr>
+            <php>
+          		$gendar_man=$users['gendar']=='男'?"selected":"";
+          		$gendar_woman=$users['gendar']=='女'?"selected":"";
+          	</php>
+	      <th>性别</th>
+	      <td>
+			<select name="gendar" class="normal_select">
+				<option value="男" {$gendar_man}>男</option>
+				<option value="女" {$gendar_woman}>女</option>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>手机号</th>
+	      <td><input type="text" name="telephone" value="{$users.telephone}" class="input input_hd J_title_color"/></td>
+	    </tr>
+	    <tr>
+	      <th>场上位置<input type="hidden" name="teamid" value="{$teammembers.id}" /></th>
+	      <td><input type="text" name="pos_text" value="{$teammembers.pos_text}" class="input input_hd J_title_color"/></td>
+	    </tr>
+	    <tr>
+	      <th>球衣号</th>
+	      <td><input type="text" name="play_number" value="{$teammembers.play_number}" class="input"></td>
+	    </tr>
+
+	    <tr>
+	      <th>头像</th>
+	      <td>
+			<if condition="$users['head_image']">
+				<img src="{$webshowimg}{$users.head_image}" width="216">
+        	</if>
+	      	<input type="file" name="head_newimage"  accept="image/*" /></td>
+	    </tr>
+	  </table>
+	</div>
+</div>
+<div class="form-actions">
+	<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+	<button type="button" class="btn" onclick="javascript:history.go(-1);">返回</button>
+</div>
+</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

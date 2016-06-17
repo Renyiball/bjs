@@ -1,0 +1,53 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap jj">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('user/index')}">管理员</a></li>
+			<li class="active"><a href="{:U('user/add')}">添加管理员</a></li>
+		</ul>
+		<div class="common-form">
+			<form method="post" class="form-horizontal J_ajaxForm" action="{:U('User/add_post')}">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">用户名:</label>
+						<div class="controls">
+							<input type="text" class="input" name="user_login" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">姓名:</label>
+						<div class="controls">
+							<input type="text" class="input" name="user_nicename" value="" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">密码:</label>
+						<div class="controls">
+							<input class="input" type="text" required name="user_pass" onfocus="this.type='password'"  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+						</div>
+					</div>
+					<if condition="I('session.school_id')">
+						<input type="hidden" id="school_id" name="school_id" value="{:I('session.school_id')}">
+					</if>
+					<div class="control-group">
+						<label class="control-label">角色类型:</label>
+						<div class="controls">
+						<select id="role_id" name="role_id">
+							<foreach name="roles" item="vo">
+							<option value='{$vo.id}'>{$vo.name}</option>
+							</foreach>
+						</select>
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn_submit J_ajax_submit_btn">添加</button>
+					<a class="btn" href="__URL__">返回</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

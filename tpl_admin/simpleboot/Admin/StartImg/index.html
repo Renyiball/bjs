@@ -1,0 +1,47 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('StartImg/index')}">图片列表</a></li>
+			<li><a href="{:U('StartImg/add')}">添加图片</a></li>
+		</ul>
+		<form class="J_ajaxForm" action="" method="post">
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="30">ID</th>
+					<th>说明</th>
+					<th>图片</th>
+					<th>状态</th>
+					<th>创建时间</th>
+					<th width="120">管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="ImgInfo" item="val">
+				<tr>
+					<td>{$val.id}</td>
+					<td>{$val.relatedid}</td>
+					<td><img src="{$webshowimg}{$val.detail_value}" width="100px;" height="50px;"></td>
+					<td>
+						<if condition="$val.showorder gt 0">
+							显示
+						<else />
+							<font color='red'>禁止</font>
+						</if>
+					</td>
+					<td>{$val.created}</td>
+					<td>
+						<a href='{:U("StartImg/edit",array("id"=>$val["id"]))}'>修改</a>
+					</td>
+
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+	
+		</form>
+	</div>
+</body>
+</html>

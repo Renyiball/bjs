@@ -1,0 +1,47 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Event/index')}">赛事列表</a></li>
+			<li><a href="{:U('Event/add')}">添加赛事</a></li>
+			<li><a href="{:U('Event/team',array('gid'=>I('get.gid')))}">赛事球队</a></li>
+			<li><a href="{:U('Event/teammember',array('tid'=>I('get.tid'),'gid'=>I('get.gid')))}">{$teaminfos.team_name} - 球员列表</a></li>
+			<li class="active"><a href="{:U('Event/addmember',array('tid'=>I('get.tid'),'gid'=>I('get.gid')))}">添加球员</a></li>
+		</ul>
+		<form class="form-horizontal J_ajaxForm" action="{:U('Event/addmember_post',array('tid'=>I('get.tid'),'gid'=>I('get.gid')))}" method="post">
+		<div class="table-actions">
+				<button class="btn btn-primary btn-small js-ajax-submit" type="submit" data-subcheck="true">加入比赛</button>
+			</div>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="15"></th>
+					<th width="30">ID</th>
+					<th>ID：手机号：性别：姓名（昵称）</th>
+					<th>球衣号：位置</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="teammembers" item="members">
+				<tr>
+					<td><input type="checkbox" class="J_check" data-yid="J_check_y" data-xid="J_check_x" name="ids[]" value="{$members.id}" title="ID:{$members.id}"></td>
+					<td>{$members.id}</td>
+					<td>
+						<foreach name="users" item="user">
+							<if condition="$members['related_userid'] eq $user['id']">
+								{$user.id}：{$user.telephone}：{$user.gendar}：{$user.real_name}（{$user.nickname}）
+				        	</if>
+						</foreach>
+					</td>
+					<td>{$members.play_number}：{$members.pos_text}</td>
+
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+		</form>
+	</div>
+</body>
+</html>

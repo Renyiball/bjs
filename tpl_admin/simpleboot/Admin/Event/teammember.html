@@ -1,0 +1,56 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Event/index')}">赛事列表</a></li>
+			<li><a href="{:U('Event/add')}">添加赛事</a></li>
+			<li><a href="{:U('Event/team',array('gid'=>I('get.gid')))}">赛事球队</a></li>
+			<li class="active"><a href="{:U('Event/teammember',array('tid'=>I('get.tid'),'gid'=>I('get.gid')))}">{$teaminfos.team_name} - 球员列表</a></li>
+			<li><a href="{:U('Event/addmember',array('tid'=>I('get.tid'),'gid'=>I('get.gid')))}">添加球员</a></li>
+		</ul>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="30">ID</th>
+					<th>ID：手机号：性别：姓名（昵称）</th>
+					<th>球衣号：位置</th>
+					<th width="120">管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="gameteamplayerlinks" item="gtpls">
+				<tr>
+					<td>{$gtpls.id}</td>
+					<td>
+						<foreach name="users" item="user">
+							<if condition="$gtpls['related_userid'] eq $user['id']">
+								{$user.id}：{$user.telephone}：{$user.gendar}：{$user.real_name}（{$user.nickname}）
+				        	</if>
+						</foreach>
+					</td>
+					<td>{$gtpls.play_number}：{$gtpls.pos_text}</td>
+					<td>
+					<if condition="$gtpls['status'] eq 300">
+						<a href='{:U("Event/tm_cancel",array("id"=>$gtpls["id"]))}' class="J_ajax_dialog_btn" data-msg="您确定要取消此球员的报名吗？">已报名</a>
+					</if>
+					<if condition="$gtpls['status'] eq 200">
+						<a href='{:U("Event/tm_confirm",array("id"=>$gtpls["id"]))}' class="J_ajax_dialog_btn" data-msg="您确定要为此球员的报名吗？">未报名</a>
+					</if>
+					<if condition="$gtpls['status'] egt 200">
+						| <a href='{:U("Event/tm_delete",array("id"=>$gtpls["id"]))}' class="J_ajax_del">删除</a>
+					</if>
+					<if condition="$gtpls['status'] eq 100">
+						<a href='{:U("Event/tm_restore",array("id"=>$gtpls["id"]))}' class="J_ajax_dialog_btn" data-msg="您确定要恢复此球员吗？">恢复</a>
+					</if>
+					</td>
+
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

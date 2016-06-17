@@ -1,0 +1,65 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Games/index')}">赛程列表</a></li>
+			<li class="active"><a href="{:U('Games/add')}">添加赛程</a></li>
+		</ul>
+	<form name="myform" id="myform" action="{:u('Games/add_post')}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">
+	<div class="col-auto">
+		<div class="table_full">
+		  <table class="table table-bordered">
+		    <tr>
+		      <th>赛事</th>
+		      <td><input type="hidden" name="game_id" value="{$fpost.game_id}">
+		      	<input type="text" name="game_name" value="{$gameinfos.game_name}" readonly="readonly"></td>
+		    </tr>
+		    <tr>
+		      <th>分组</th>
+		      <td><input type="text" name="cur_group" value="{$fpost.cur_group}" readonly="readonly"></td>
+		    </tr>
+		    <tr>
+		      <th>比赛类型</th>
+		      <td>
+            	<foreach name="groups" item="group">
+					<if condition="$group['id'] eq $fpost['match_group']">
+						<input type="hidden" name="match_group" value="{$group.id}">
+						<input type="text" name="matchdesc" value="{$group.name}" readonly="readonly">
+					</if>
+		        </foreach>
+		      </td>
+		    </tr>
+            <tr>
+              <th>对战球队:</th>
+              <td>
+				<select name="teamid1">
+						<option value="0">请选择球队</option>
+	            	<foreach name="teaminfos" item="team">
+						<option value="{$team.id}">{$team.team_name}</option>
+			        </foreach>
+				</select>
+				<select name="teamid2">
+						<option value="0">请选择球队</option>
+	            	<foreach name="teaminfos" item="team">
+						<option value="{$team.id}">{$team.team_name}</option>
+			        </foreach>
+				</select>
+              </td>
+            </tr>
+		    <tr>
+		      <th>比赛时间</th>
+		      <td><input type="text" name="matchdatetime" value="{:date('Y-m-d H:00',strtotime('+7 day'))}" size="21" class="input J_datetime"></td>
+		    </tr>
+		  </table>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+		<button type="button" class="btn" onclick="javascript:history.go(-1);">返回</button>
+	</div>
+	</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

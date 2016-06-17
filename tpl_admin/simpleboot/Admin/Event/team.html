@@ -1,0 +1,111 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Event/index')}">赛事列表</a></li>
+			<li><a href="{:U('Event/add')}">添加赛事</a></li>
+			<li class="active"><a href="{:U('Event/team',array('gid'=>I('get.gid')))}">赛事球队</a></li>
+			<li><a href="{:U('Event/addteam',array('gid'=>I('get.gid')))}">添加球队</a></li>
+		</ul>
+		<form class="J_ajaxForm" action="" method="post">
+			<div class="table-actions">
+				<button class="btn btn-primary btn-small J_articles_move" type="button">分组</button>
+			</div>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="15"><label><input type="checkbox" class="J_check_all" data-direction="x" data-checklist="J_check_x"></label></th>
+					<th width="30">ID</th>
+					<th>班级名称 - 班主任</th>
+					<th>所在分组</th>
+					<th>班级简称</th>
+					<th>入学年份</th>
+					<th>球队简介</th>
+					<th width="60">管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="teaminfos" item="infos">
+				<tr>
+					<td><input type="checkbox" class="J_check" data-yid="J_check_y" data-xid="J_check_x" name="ids[]" value="{$infos.id}" title="ID:{$infos.id}"></td>
+					<td>{$infos.id}</td>
+					<td>
+						<a href="{:U('Event/teammember',array('tid'=>$infos['id'],'gid'=>I('get.gid')))}">{$infos.team_name}
+							<foreach name="users" item="user">
+								<if condition="$infos['master_userid'] eq $user['id']"> - 
+									{$user.user_nicename}
+								</if>
+							</foreach>
+						</a>
+					</td>
+					<td>
+						<foreach name="gameteamlinks" item="links">
+							<if condition="$links['team_id'] eq $infos['id']">
+									{$links.cur_group}
+							</if>
+						</foreach>
+					</td>
+					<td>{$infos.short_name}</td>
+					<td>{$infos.description1}</td>
+					<td>{$infos.description2}</td>
+					<td>
+						<a href='{:U("Event/deleteteam",array("tid"=>$infos["id"],"gid"=>I("get.gid")))}' class="J_ajax_del" >删除</a>
+					</td>
+
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+		<script>
+		function refersh_window() {
+			var refersh_time = getCookie('refersh_time');
+			if (refersh_time == 1) {
+				window.location = "{:U('Grade/index',$formget)}";
+			}
+		}
+		setInterval(function() {
+			refersh_window();
+		}, 2000);
+		$(function() {
+			setCookie("refersh_time", 0);
+			Wind.use('ajaxForm', 'artDialog', 'iframeTools', function() {
+				//批量移动
+				$('.J_articles_move').click(
+						function(e) {
+							var str = 0;
+							var id = tag = '';
+							$("input[name='ids[]']").each(function() {
+								if ($(this).attr('checked')) {
+									str = 1;
+									id += tag + $(this).val();
+									tag = ',';
+								}
+							});
+							if (str == 0) {
+								art.dialog.through({
+									id : 'error',
+									icon : 'error',
+									content : '您没有勾选信息，无法进行操作！',
+									cancelVal : '关闭',
+									cancel : true
+								});
+								return false;
+							}
+							var $this = $(this);
+							art.dialog.open(
+									"__ROOT__/index.php?g=admin&m=Event&a=move&gid={$fpost.gid}&ids="
+											+ id, {
+										title : "球队分组",
+										width : "40%"
+									});
+						});
+			});
+		});
+	</script>
+</body>
+</html>

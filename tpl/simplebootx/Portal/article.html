@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>{$rules.rule_title}</title>
+		<meta name="keywords" content="{$rules.rule_title}" />
+		<meta name="description" content="{$rules.rule_title}">
+		<tc_include file="Public:head" />
+		<style>
+			body{margin-top: 0;}
+			#article_content img{height:auto !important}
+			#article_content {word-wrap: break-word;}
+		</style>
+	</head>
+<body class="">
+<div class="container tc-main">
+	<div class="row">
+		<div class="span12">
+			<div class="tc-box first-box article-box">
+		    	<h2>{$rules.rule_title}</h2>
+		    	<hr>
+		    	<div id="article_content">
+		    	{$rules.rule_content}
+		    	</div>
+		    	<div>
+				</div>
+		    </div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

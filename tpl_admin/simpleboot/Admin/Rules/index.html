@@ -1,0 +1,55 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Rules/index')}">所有赛规</a></li>
+			<if condition="I('session.school_id')||I('session.packet_id') lt 3">
+			<li><a href="{:U('Rules/add')}">添加赛规</a></li>
+			</if>
+		</ul>
+		<form class="J_ajaxForm" action="" method="post">
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="50">ID</th>
+						<th>标题</th>
+						<th>所属联赛</th>
+						<th>发布人</th>
+						<th width="120">发布时间</th>
+						<th width="60">管理操作</th>
+					</tr>
+				</thead>
+				<foreach name="rules" item="rule">
+				<tr>
+					<td>{$rule.id}</td>
+					<td><a href="{:U('portal/article/index',array('id'=>$rule['id']))}" target="_blank"> <span>{$rule.rule_title}</span></a></td>
+					<td>
+				        <foreach name="gameinfos" item="infos">
+				        	<if condition="$infos['id'] eq $rule['game_id']">
+								{$infos.game_name}
+		        			</if>
+		        		</foreach>
+					</td>
+					<td>
+						<foreach name="users" item="user">
+				        	<if condition="$user['id'] eq $rule['rule_userid']">
+								{$user.user_login}
+		        			</if>
+		        		</foreach>
+					</td>
+					<td>{$rule.rule_date}</td>
+					<td>
+						<a href="{:U('Rules/edit',array('id'=>$rule['id']))}">修改</a> | 
+						<a href="{:U('Rules/delete',array('id'=>$rule['id']))}" class="J_ajax_del">删除</a>
+					</td>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$Page}</div>
+
+		</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Event/index')}">赛事列表</a></li>
+			<li class="active"><a href="{:U('Event/add')}">添加赛事</a></li>
+		</ul>
+<form name="myform" id="myform" action="{:u('Event/add_post')}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">
+<div class="col-auto">
+	<div class="table_full">
+	  <table class="table table-bordered">
+	    <tr>
+	      <th>名称</th>
+	      <td><input type="text" name="game_name" class="input input_hd J_title_color"/></td>
+	    </tr>
+	    <tr>
+	      <th>说明</th>
+	      <td><textarea name='game_description1' style='height:55px;'>{$gameinfos.game_description1}</textarea></td>
+	    </tr>
+	    <tr>
+	      <th>参数人数</th>
+	      <td>
+			<select name="player_type" class="normal_select">
+				<option value="0">请选择</option>
+        		<foreach name="players" item="player">
+					<option value='{$player.id}'>{$player.name}</option>
+               	</foreach>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>比赛状态</th>
+	      <td>
+			<select name="status" class="normal_select">
+				<option value="0">请选择</option>
+        		<foreach name="statuss" item="status">
+					<option value='{$status.id}'>{$status.name}</option>
+               	</foreach>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>主办方</th>
+	      <td><input type='text' name='host_title' class='input'></td>
+	    </tr>
+	    <tr>
+	      <th>协办方</th>
+	      <td><input type='text' name='host_field' class='input'></td>
+	    </tr>
+	    <tr>
+	      <th>承办方</th>
+	      <td><input type='text' name='other_partner' value="任意球APP" class='input'></td>
+	    </tr>
+	    <tr>
+	      <th>开始时间</th>
+	      <td><input type='text' name='startdate' value="{:date('Y-m-d',strtotime('+7 day'))}" class="J_date"></td>
+	    </tr>
+	    <tr>
+	      <th>开赛时间</th>
+	      <td><input type='text' name='gamedate' value="{:date('Y-m-d',strtotime('+15 day'))}" class="J_date"></td>
+	    </tr>
+	    <tr>
+	      <th>结束时间</th>
+	      <td><input type='text' name='enddate' value="{:date('Y-m-d',strtotime('+2 month'))}" class="J_date"></td>
+	    </tr>
+	    <tr>
+	      <th>LOGO(图片宽必须为高的1倍)</th>
+	      <td>
+	      	<input type="file" name="game_logo" id="file1" multiple="multiple" accept="image/*"/>
+			<img src="" id="img1" width="108">
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>广告(图片宽必须为高的3.4倍)</th>
+	      <td>
+	      	<input type="file" name="game_adv" id="file2" multiple="multiple" accept="image/*"/>
+			<img src="" id="img2" width="216">
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>背景(图片宽必须为高的3.4倍)</th>
+	      <td>
+	      	<input type="file" name="game_bg" id="file3" multiple="multiple" accept="image/*"/>
+			<img src="" id="img3" width="216">
+	      </td>
+	    </tr>
+	  </table>
+	</div>
+</div>
+<div class="form-actions">
+	<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+	<button type="button" class="btn" onclick="javascript:history.go(-1);">返回</button>
+</div>
+</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script>	
+$("#file1").change(function(){
+	var objUrl = getObjectURL(this.files[0]) ;
+	console.log("objUrl = "+objUrl) ;
+	if (objUrl) {
+		$("#img1").attr("src", objUrl) ;
+	}
+}) ;
+$("#file2").change(function(){
+	var objUrl = getObjectURL(this.files[0]) ;
+	console.log("objUrl = "+objUrl) ;
+	if (objUrl) {
+		$("#img2").attr("src", objUrl) ;
+	}
+}) ;
+$("#file3").change(function(){
+	var objUrl = getObjectURL(this.files[0]) ;
+	console.log("objUrl = "+objUrl) ;
+	if (objUrl) {
+		$("#img3").attr("src", objUrl) ;
+	}
+}) ;
+//建立一個可存取到該file的url
+function getObjectURL(file) {
+	var url = null ; 
+	if (window.createObjectURL!=undefined) { // basic
+		url = window.createObjectURL(file) ;
+	} else if (window.URL!=undefined) { // mozilla(firefox)
+		url = window.URL.createObjectURL(file) ;
+	} else if (window.webkitURL!=undefined) { // webkit or chrome
+		url = window.webkitURL.createObjectURL(file) ;
+	}
+	return url ;
+}
+</script>
+</body>
+</html>

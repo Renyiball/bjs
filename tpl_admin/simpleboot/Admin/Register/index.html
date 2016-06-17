@@ -1,0 +1,42 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Register/index')}">用户列表</a></li>
+		</ul>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th>ID：用户昵称</th>
+					<th>姓名 - 性别</th>
+					<th>手机号</th>
+					<th>用户类型：编号</th>
+					<th>注册来源</th>
+					<th>设备信息</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="users" item="user">
+				<tr>
+					<td>{$user.id}：{$user.nickname}</td>
+					<td>{$user.real_name} - {$user.gendar}</td>
+					<td>{$user.telephone}</td>
+					<td>{$user.usertype}：{$user.student_number}{$user.teacher_number}</td>
+					<td>
+						<foreach name="source" item="sou">
+							<if condition="$sou['id'] eq substr($user['regist_source'],0,4)">
+								{$sou.name}
+							</if>
+						</foreach>
+					</td>
+					<td>{$user.firstuniqueid}</td>
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

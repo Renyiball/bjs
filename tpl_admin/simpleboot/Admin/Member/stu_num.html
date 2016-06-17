@@ -1,0 +1,52 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Member/index',array('gid'=>I('get.gid')))}">球员列表</a></li>
+			<li class="active"><a href="{:U('Member/stu_num',array('gid'=>I('get.gid')))}">查看认证学籍号</a></li>
+		</ul>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="30">NO.</th>
+					<th width="60">学籍号</th>
+					<th width="60">教师号</th>
+					<th>使用状态</th>
+					<!-- <th width="120">管理操作</th> -->
+				</tr>
+			</thead>
+			<tbody>
+			<!-- {$i} -->
+				<foreach name="data" item="v">
+				<tr>
+					<if condition="$v['order_in_team'] eq ''">
+						<td>{$v.id}</td>
+					<else />
+						<td>{$v.order_in_team}</td>
+					</if>
+					<if condition="$v['student_number'] eq ''">
+						<td></td>
+					<else />
+						<td>{$v.student_number}</td>
+					</if>
+					<if condition="$v['teacher_number'] eq ''">
+						<td></td>
+					<else />
+						<td>{$v.teacher_number}</td>
+					</if>
+					<if condition="$v['status'] eq 100">
+						<td>已使用</td>
+					<else/>
+						<td>未使用</td>
+				    </if>
+				</tr>
+				<!-- {$i++} -->
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

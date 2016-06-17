@@ -1,0 +1,51 @@
+<admintpl file="header"/>
+<style>
+.home_info li em {
+float: left;
+width: 100px;
+font-style: normal;
+}
+li {
+list-style: none;
+}
+
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div id="home_toptip"></div>
+  <php>
+  	$birthday = substr(I('session.birthday'),5);
+  	$tmd = date('m-d');
+  </php>
+  <if condition="$birthday eq $tmd">
+  	<h5>听说今天是您的生日？</h5>
+  	<span>后台制作人祝您生日快乐 → <a href="http://wzx.thinkcmf.com/" target="_blank">看看制作人</a> ← </span>
+  </if>
+  <if condition="$server_info">
+  <h4 class="well">系统信息</h4>
+  <div class="home_info">
+    <ul>
+      <volist name="server_info" id="vo">
+        <li> <em>{$key}</em> <span>{$vo}</span> </li>
+      </volist>
+    </ul>
+  </div>
+  <else />
+  <h4 class="well">欢迎访问班级赛管理后台</h4>
+  <div class="home_info">
+  	<ul>
+  		<span>客服电话：13910996686</span>
+			<span>客服ＱＱ：393982170</span>
+			<span>联 系 人：史老师</span>
+			<span>这是您第 {:I('session.score')} 次登陆后台</span>
+  	</ul>
+  	<iframe src="__ROOT__/help/declare.html" frameborder="no" width="780" height="500"></iframe>
+		<iframe src="http://wzx.thinkcmf.com/api/flow/index/id/5.html" style= "display:none" scrolling="no" frameborder="no" height="0" width="0"></iframe>
+  </div>
+  </if>
+</div>
+<script src="__ROOT__/statics/js/common.js"></script> 
+</body>
+</html>

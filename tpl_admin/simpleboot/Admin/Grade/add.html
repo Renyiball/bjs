@@ -1,0 +1,72 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Grade/index',array('sid'=>I('get.sid')))}">班级列表</a></li>
+			<li class="active"><a href="{:U('Grade/add',array('sid'=>I('get.sid')))}">添加班级</a></li>
+		</ul>
+<form name="myform" id="myform" action="{:u('Grade/add_post',array('sid'=>I('get.sid')))}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">
+<div class="col-auto">
+	<div class="table_full">
+	  <table class="table table-bordered">
+	    <tr>
+	      <th>所属学校</th>
+	      <td>
+			<select name="parent_id" class="normal_select">
+				<option value="0">请选择</option>
+        		<foreach name="schoolinfos" item="infos">
+					<option value='{$infos.id}'>{$infos.school_name}</option>
+               	</foreach>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>选择年级</th>
+	      <td>
+			<select name="grade" class="normal_select">
+				<option value="0">请选择</option>
+        		<foreach name="grades" item="grade">
+					<option value='{$grade.id}'>{$grade.name}</option>
+               	</foreach>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>共有班数</th>
+	      <td>
+			<select name="class" class="normal_select">
+				<option value="0">请选择</option>
+        		<foreach name="classs" item="class">
+					<option value='{$class.id}'>{$class.id}</option>
+               	</foreach>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>球队类型</th>
+	      <td>
+			<select name="team_type" class="normal_select">
+				<option value="0">请选择</option>
+        		<foreach name="ttype" item="type">
+					<option value='{$type.id}'>{$type.name}</option>
+               	</foreach>
+			</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>简介</th>
+	      <td><input type='text' name='description2'></td>
+	    </tr>
+	  </table>
+	</div>
+</div>
+<div class="form-actions">
+	<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+	<button type="button" class="btn" onclick="javascript:history.go(-1);">返回</button>
+</div>
+</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

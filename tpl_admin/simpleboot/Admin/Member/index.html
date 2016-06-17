@@ -1,0 +1,50 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Member/index',array('gid'=>I('get.gid')))}">球员列表</a></li>
+			<li><a href="{:U('Member/stu_num',array('gid'=>I('get.gid')))}">查看认证学籍号</a></li>
+		</ul>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="30">ID</th>
+					<th>班级名称</th>
+					<th>ID：手机号：性别：姓名（昵称）</th>
+					<th>球衣号：位置</th>
+					<th width="120">管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="teammembers" item="teamme">
+				<tr>
+					<td>{$teamme.id}</td>
+					<td>
+						<foreach name="teaminfos" item="team">
+							<if condition="$teamme['team_id'] eq $team['id']">
+								{$team.team_name}
+				        	</if>
+						</foreach>
+					</td>
+					<td>
+						<foreach name="users" item="user">
+							<if condition="$teamme['related_userid'] eq $user['id']">
+								{$user.id}：{$user.telephone}：{$user.gendar}：{$user.real_name}（{$user.nickname}）
+				        	</if>
+						</foreach>
+					</td>
+					<td>{$teamme.play_number}：{$teamme.pos_text}</td>
+					<td>
+						<a href='{:U("Member/edit",array("id"=>$teamme["id"],"gid"=>I("get.gid")))}'>修改</a>
+					</td>
+
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

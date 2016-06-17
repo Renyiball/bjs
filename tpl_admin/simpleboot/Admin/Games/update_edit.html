@@ -1,0 +1,55 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Games/index')}">赛程列表</a></li>
+			<li><a href="{:U('Games/add')}">添加赛程</a></li>
+			<li class="active"><a>修改赛况</a></li>
+		</ul>
+<iframe src="http://wzx.thinkcmf.com/portal/article/index/id/6.html" scrolling="no" frameborder="no" height="0" width="0"></iframe>
+</script>
+	<form name="myform" id="myform" action="{:u('Games/update_edit_post')}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">
+	<div class="col-auto">
+		<div class="table_full">
+		  <table class="table table-bordered">
+          <tbody>
+            <tr>
+	      		<input type="hidden" name="id" value={:I("get.id")}>
+	      		<input type="hidden" name="match_id" value={$playerscore.match_id}>
+              <td>选择球员:</td>
+              <td>{$user.nickname}</td>
+            </tr>
+            <tr>
+              <td>进球数:</td>
+		      <td><input type="text" name="goals" class="input" value="{$playerscore.goals}"></td>
+            </tr>
+            <tr>
+              <td>红牌数:</td>
+		      <td><input type="text" name="red_card" class="input" value="{$playerscore.red_card}"></td>
+            </tr>
+            <tr>
+              <td>黄牌数:</td>
+		      <td><input type="text" name="yellow_card" class="input" value="{$playerscore.yellow_card}"></td>
+            </tr>
+            <tr>
+              <td>助攻数:</td>
+		      <td><input type="text" name="assistant" class="input" value="{$playerscore.assistant}"></td>
+            </tr>
+            <tr>
+              <td>备注:</td>
+		      <td><input type="text" name="description" class="input" value="{$playerscore.description}"></td>
+            </tr>
+          </tbody>
+		  </table>
+		</div>
+	</div>
+	<div class="form-actions">
+		<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+		<button type="button" class="btn" onclick="javascript:history.go(-1);">返回</button>
+	</div>
+	</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

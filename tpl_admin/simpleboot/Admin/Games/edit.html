@@ -1,0 +1,48 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Games/index')}">赛程列表</a></li>
+			<li><a href="{:U('Games/add')}">添加赛程</a></li>
+			<li class="active"><a>修改赛程</a></li>
+		</ul>
+<form name="myform" id="myform" action="{:u('Games/edit_post')}" method="post" class="form-horizontal J_ajaxForm" enctype="multipart/form-data">
+<div class="col-auto">
+	<div class="table_full">
+	  <table class="table table-bordered">
+		    <tr>
+		      <th>所属赛事<input type="hidden" name="id" value="{$matchinfos.id}" /></th>
+		      <td>{$gameinfos.game_name}<input type="hidden" name="matchdesc" value="{$matchinfos.matchdesc}" /></td>
+		    </tr>
+            <tr>
+              <th>对战球队:</th>
+              <td>
+              	<input type="hidden" name="teamid1" value="{$matchinfos.teamid1}" />
+              	<input type="hidden" name="teamid2" value="{$matchinfos.teamid2}" />
+				{$teamid1.team_name} VS {$teamid2.team_name}
+              </td>
+            </tr>
+            <tr>
+              <th>比分:</th>
+              <td>
+				<input type="text" name="score1" value="{$matchinfos.score1}" class="input" style="width: 96px;">
+              	<input type="text" name="score2" value="{$matchinfos.score2}" class="input" style="width: 96px;">
+              </td>
+            </tr>
+		    <tr>
+		      <th>比赛时间</th>
+		      <td><input type="text" name="matchdatetime" value="{$matchinfos.matchdatetime}" size="21" class="input J_datetime"></td>
+		    </tr>
+	  </table>
+	</div>
+</div>
+<div class="form-actions">
+	<button class="btn btn-primary btn_submit J_ajax_submit_btn"type="submit">提交</button>
+	<button type="button" class="btn" onclick="javascript:history.go(-1);">返回</button>
+</div>
+</form>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>

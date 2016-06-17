@@ -1,0 +1,41 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li><a href="{:U('Forums/index')}">论坛文章</a></li>
+			<li class="active"><a>查看评论</a></li>
+		</ul>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="40">ID</th>
+						<th>楼层</th>
+						<th>内容</th>
+						<th>发布人</th>
+						<th>时间</th>
+					</tr>
+				</thead>
+				<foreach name="forums" item="forum">
+				<tr>
+					<td>{$forum.id}</td>
+					<td>{$forum.title}</td>
+					<td>{$forum.description}</td>
+					<td>
+						{$forum.userid}：
+						<foreach name="users" item="user">
+							<if condition = "$user['id'] eq $forum['userid']">
+								{$user.nickname}
+							</if>
+						</foreach>
+					</td>
+					<td>{$forum.created|substr=0,16}</td>
+				</tr>
+				</foreach>
+			</table>
+			<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+	<script type="text/javascript" src="__ROOT__/statics/js/content_addtop.js"></script>
+</body>
+</html>

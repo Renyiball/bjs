@@ -1,0 +1,38 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+		<li><a href="{:U('Active/index')}">操作记录</a></li>
+     <li class="active"><a>查看详情</a></li>
+  </ul>
+		<table class="table table-hover table-bordered">
+        <thead>
+          <tr>
+                <th width="50">ID</th>
+                <th width="150">最后操作内容</th>
+                <th width="60">请求端口</th>
+                <th>数据</th>
+                <th width="100">请求来源IP</th>
+                <th width="120">请求时间</th>
+          </tr>
+        </thead>
+        <tbody>
+        <foreach name="lists" item="vo">
+          <tr>
+							<td>{$vo.id}</td>
+							<td>{$vo.funcname} — {$vo.art}</td>
+							<td>{$vo.remote_port}</td>
+							<td>{$vo.response_data|msubstr=0,128}</td>
+							<td>{$vo.remote_addr}</td>
+							<td>{$vo.created}</td>
+          </tr>
+         </foreach>
+        </tbody>
+      </table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>
+

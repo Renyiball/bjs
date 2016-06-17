@@ -1,0 +1,75 @@
+<admintpl file="header" />
+</head>
+<body class="J_scroll_fixed">
+	<div class="wrap J_check_wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="{:U('Games/index')}">赛程列表</a></li>
+			<if condition="I('session.school_id')||I('session.packet_id') lt 3">
+			<li><a href="{:U('Games/add',array('gid'=>$fpost['gid']))}">添加赛程</a></li>
+			</if>
+		</ul>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th width="30">ID</th>
+					<th>赛事类型</th>
+					<th>对战球队</th>
+					<th>比分</th>
+					<th width="120">比赛时间</th>
+					<th width="120">管理操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<foreach name="matchinfos" item="infos">
+				<tr>
+					<td>{$infos.id}</td>
+					<td>
+		        		<foreach name="gameinfos" item="info">
+							<if condition="$info['id'] eq $infos['game_id']">
+								{$info.game_name}
+				        	</if>
+		               	</foreach>
+						{$infos.matchdesc}
+					</td>
+					<td>
+		        		<foreach name="teaminfos" item="info">
+							<if condition="$info['id'] eq $infos['teamid1']">
+								{$info.team_name}
+				        	</if>
+		               	</foreach>
+						 VS 
+		        		<foreach name="teaminfos" item="info">
+							<if condition="$info['id'] eq $infos['teamid2']">
+								{$info.team_name}
+				        	</if>
+		               	</foreach>
+					</td>
+					<td>
+						<if condition="$infos['score1'] eq ''">
+							<if condition="$infos['matchdatetime'] gt date('Y-m-d H:i:s')">
+				        		<b>未开赛</b>
+			        		<else />
+				        		<b style="color: red;">未更新</b>
+							</if>
+		        		<else />
+						{$infos.score1} : {$infos.score2}
+		        		</if>
+					</td>
+					<td>{$infos.matchdatetime}</td>
+					<td>
+						<a href='{:U("Games/edit",array("id"=>$infos["id"]))}'>修改</a> |
+						<a href="{:U('Games/delete',array('id'=>$infos['id']))}" class="J_ajax_del">删除</a>
+						<if condition="$infos['score1'] neq ''"> |
+						<a href="{:U('Games/update',array('id'=>$infos['id']))}">更新赛况</a>
+						</if>
+					</td>
+
+				</tr>
+				</foreach>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}</div>
+	</div>
+	<script src="__ROOT__/statics/js/common.js"></script>
+</body>
+</html>
